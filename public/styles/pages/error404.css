@@ -1,0 +1,9 @@
+.error__img {
+    max-width: 250px;
+}
+
+@media screen and (min-width: 768px) {
+    .error__img {
+        max-width: none;
+    }    
+}

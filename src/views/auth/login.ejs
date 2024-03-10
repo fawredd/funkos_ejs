@@ -1,0 +1,58 @@
+<%- include('../partials/header.ejs') %>
+
+    <main>
+      <section class="auth container">
+        <h1 class="auth__title">INGRESAR A MI CUENTA</h1>
+
+        <form class="auth__form" action="/auth/login" method="POST" enctype="application/x-www-form-urlencoded">
+          <ul class="auth__list">
+            <li class="auth__content">
+              <label class="auth__label" for="email">Email:</label>
+              <input
+                class="auth__input"
+                type="email"
+                name="email"
+                id="email"
+                placeholder="admin@fawfunk.com"
+                value="admin@fawfunk.com"
+              />
+            </li>
+
+            <li class="auth__content">
+              <label class="auth__label" for="password">Contraseña:</label>
+              <input
+                class="auth__input"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="admin1234"
+                value="admin1234"
+              />
+            </li>
+          </ul>
+
+          <% if (typeof errors != 'undefined') { %>
+          <ul>
+            <% errors.forEach(error => { %>
+            <li class="auth__error"><%= error.msg %></li>
+            <% }) %>
+          </ul>
+          <% } %>
+
+          <div class="auth__enter">
+            <input class="auth__button" type="submit" value="Ingresar" />
+          </div>
+        </form>
+
+        <a class="auth__olvidar" href="/auth/register">
+          ¿No tiene una cuenta? Regístrate
+        </a>
+      </section>
+    </main>
+
+    <%- include ('../partials/footer.ejs') %>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="/scripts/menu.js"></script>
+  </body>
+</html>

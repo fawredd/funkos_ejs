@@ -1,0 +1,95 @@
+<%- include('./partials/header.ejs') %>
+
+    <section class="banner">
+      <article class="banner__content container">
+        <h2 class="banner__title">Nuevos ingresos</h2>
+        <p class="banner__text">
+          Descubrí el próximo Funko Pop de tu colección
+        </p>
+        <a class="banner__link" href="/shop">SHOP</a>
+      </article>
+    </section>
+
+    <main class="home">
+
+      <% licenceList.forEach(licence => { %>
+      <section class="colecciones container">
+        <article class="colecciones__content">
+          <h3 class="colecciones__title"><%= licence.licenceName %></h3>
+          <p class="colecciones__text"><%= licence.licenceDescription %></p>
+          <div class="colecciones__line"></div>
+          <a class="colecciones__link" href='/shop?search=<%= licence.licenceName.toLowerCase().trim().replace(/ /g, "")%>'>VER COLECCIÓN</a>
+        </article>
+
+        <picture class="colecciones__img">
+          <img
+            src="<%= '/img/' + licence.licenceName.replace(/\s/g, '-').toLowerCase() + '/' + licence.licenceImage %>"
+            alt="<%= licence.licenceDescription %>"
+          />
+        </picture>
+      </section>
+      <% }); %>
+
+      <section class="slider container glide">
+        <h3 class="slider__title">ÚLTIMOS LANZAMIENTOS</h3>
+        <div class="glide__track" data-glide-el="track">
+          <ul class="slider__list glide__slides">
+            <% const arg = (number) => {
+              return number.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+            };
+            
+            itemsList.forEach(item => { %>
+              <li class="slider__item glide__slide">
+                <article class="card-item">
+                  <a class="card-item__link" href="/shop/item/<%= item.id %>">
+                    <picture class="card-item__img">
+                      <span class="card-item__tag">NUEVO</span>
+                      <img
+                        class="card-item__img--front"
+                        src="<%= item.imageFront %>"
+                        alt="<%= item.productDescription %>"
+                      />
+                      <img
+                        class="card-item__img--back"
+                        src="<%= item.imageBack %>"
+                        alt="<%= item.productDescription %> BOX"
+                      />
+                    </picture>
+                    <div class="card-item__content">
+                      <p class="card-item__license"><%= item.licence.licenceName %></p>
+                      <h3 class="card-item__name"><%= item.productName %></h3>
+                      <p class="card-item__price"><%= arg(Number(item.price)) %></p>
+                      <p class="card-item__offer"><%= item.dues %> CUOTAS SIN INTERÉS</p>
+                    </div>
+                  </a>
+                </article>
+              </li>
+            <% }) %>
+          </ul>
+        </div>
+
+        <div class="glide__arrows" data-glide-el="controls">
+          <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+            <iconify-icon
+              class="slider__chevron"
+              icon="tabler:chevron-left"
+            ></iconify-icon>
+          </button>
+          <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+            <iconify-icon
+              class="slider__chevron"
+              icon="tabler:chevron-right"
+            ></iconify-icon>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <%- include ('./partials/footer.ejs') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.7/dist/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+    <script src="/scripts/menu.js"></script>
+    <script src="/scripts/slider.js"></script>
+  </body>
+</html>

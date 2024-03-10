@@ -1,0 +1,64 @@
+
+:root {
+  --color-primario: #ff3333;
+  --color-primario-90: rgba(255, 51, 51, 0.9);
+  --color-primario-50: rgba(255, 51, 51, 0.5);
+  --color-primario-30: rgba(255, 51, 51, 0.3);
+
+  --color-secundario: #1d84b5;
+  --color-secundario-90: rgba(29, 132, 181, 0.9);
+  --color-secundario-50: rgba(29, 132, 181, 0.5);
+  --color-secundario-30: rgba(29, 132, 181, 0.3);
+
+  --color-oscuro: #1f1f1f;
+  --color-oscuro-90: rgba(31, 31, 31, 0.9);
+  --color-oscuro-50: rgba(31, 31, 31, 0.5);
+  --color-oscuro-30: rgba(31, 31, 31, 0.3);
+
+  --background-oscuro: #30343f;
+  --background-claro: #fafaff;
+
+  --color-fuente-claro: #ffffff;
+  --color-fuente-gris: #333333;
+  --color-fuente-oscuro: #111111;
+
+  --fuente-alternativa: 'Raleway', sans-serif;
+
+  --font-size-46px: 4.6em;
+  --font-size-42px: 4.2em;
+  --font-size-38px: 3.8em;
+  --font-size-34px: 3.4em;
+  --font-size-30px: 3em;
+  --font-size-28px: 2.8em;
+  --font-size-26px: 2.6em;
+  --font-size-24px: 2.4em;
+  --font-size-22px: 2.2em;
+  --font-size-20px: 2em;
+  --font-size-18px: 1.8em;
+  --font-size-16px: 1.6em;
+  --font-size-14px: 1.4em;
+  --font-size-12px: 1.2em;
+  --font-size-10px: 1em;
+  --font-size-8px: 0.8em;
+  
+  --spacing-128: 12.8rem;
+  --spacing-68: 6.8rem;
+  --spacing-48: 4.8rem;
+  --spacing-42: 4.2rem;
+  --spacing-36: 3.6rem;
+  --spacing-34: 4.2rem;
+  --spacing-30: 3rem;
+  --spacing-28: 2.8rem;
+  --spacing-24: 2.4rem;
+  --spacing-22: 2.2rem;
+  --spacing-20: 2rem;
+  --spacing-18: 1.8rem;
+  --spacing-16: 1.6rem;
+  --spacing-14: 1.4rem;
+  --spacing-12: 1.2rem;
+  --spacing-10: 1rem;
+  --spacing-8: 0.8rem;
+  --spacing-6: 0.6rem;
+  --spacing-4: 0.4rem;
+  --spacing-2: 0.2rem;
+}

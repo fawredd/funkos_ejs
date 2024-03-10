@@ -1,0 +1,71 @@
+<%- include('../partials/header.ejs') %>
+
+    <main class="admin">
+      <form action="/admin" method="GET" class="buscador container">
+        <label class="buscador__icon" for="search">
+          <picture>
+            <img src="/img/icons/search_icon.svg" alt="Buscador" />
+          </picture>
+        </label>
+
+        <input class="buscador__search" type="text" name="search" id="search" placeholder="código, nombre o categoría" />
+      </form>
+
+      <section class="productos container">
+        <div class="productos__header">
+          <h1 class="productos__title">LISTADO DE PRODUCTOS</h1>
+
+          <a class="productos__add" href="/admin/create">
+            Agregar
+            <iconify-icon class="productos__add--icon" icon="bxs:plus-square"> </iconify-icon>
+          </a>
+        </div>
+
+        <article class="productos__list container">
+          <table class="productos__table">
+            <thead>
+              <tr class="productos__head">
+                <th>ID</th>
+                <th>Código</th>
+                <th>Nombre del Producto</th>
+                <th>Categoría</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% filteredItems.forEach(product => { %>
+                <tr class="productos__content">
+                  <td><%= product.id %></td>
+                  <td><%= product.sku %></td>
+                  <td><%= product.productName %></td>
+                  <td><%= product.category.categoryName %></td>
+                  <td>
+                    <a href="/admin/edit/<%= product.id %>">
+                      <img class="productos__icon" src="/img/icons/edit_pencil.svg" alt="Edit Icon" />
+                    </a>
+                  </td>
+                  <td>
+                    <form action="/admin/delete/<%= product.id %>?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded">
+                      <button class="productos__icon" type="submit"><img class="productos__icon" src="/img/icons/delete_trash.svg" alt="Delete Icon" /></>
+                    </form>
+                  </td>
+                </tr>
+                <% }) %>
+                <% if (filteredItems.length === 0) { %>
+                <tr>
+                  <td class="admin__empty" colspan="4">No se han encontrado coincidencias.</td>
+                </tr>
+                <% } %>
+            </tbody>
+          </table>
+        </article>
+      </section>
+    </main>
+
+    <%- include ('../partials/footer.ejs') %>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="/scripts/menu.js"></script>
+    <script src="/scripts/admin.js"></script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<%- include('./partials/header.ejs') %>
+
+    <main class="item__page">
+      <section class="item container">
+        <picture class="error__img">
+          <img class="card-item__img--front" src="/img/spiderman-error.png" alt="Spiderman error credenciales inválidas." />
+        </picture>
+
+        <article class="item__content">
+          <p class="item__license">Sin acceso</p>
+          <h1 class="item__title">¡Lo siento! Usted no tiene acceso a esta página.</h1>
+          <p class="item__price">Necesita tener permisos de administrador para acceder.</p>
+
+          <div class="item__carrito">
+              <a class="item__add-cart" href="/">Ir a la página de inicio</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <%- include ('./partials/footer.ejs') %>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+    <script src="/scripts/menu.js"></script>
+  </body>
+</html>

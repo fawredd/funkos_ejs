@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %> - Funkoshop</title>
+    <link rel="stylesheet" href="/styles/index.css" />
+    <link rel="icon" href="/img/branding/isotype.svg" type="image/x-icon" />
+  </head>
+
+  <body class="body__short-content">
+    <header>
+      <nav class="navbar container">
+        <picture class="navbar__img">
+          <a href="/">
+            <img src="/img/branding/logo_light_horizontal.svg" alt="Logo Horizontal Funko Shop" />
+          </a>
+        </picture>
+
+        <div class="navbar__icon">
+          <iconify-icon icon="mingcute:menu-line"></iconify-icon>
+        </div>
+
+        <% if (locals.isLoggedAdmin) { %>
+
+        <ul class="navbar__menu">
+          <li class="navbar__item">
+            <a class="navbar__link" href="/shop">VER TIENDA</a>
+          </li>
+          <li class="navbar__item">
+            <a class="navbar__link" href="/admin">ADMIN</a>
+          </li>
+          <li class="navbar__item">
+            <a class="navbar__link" href="/auth/logout">SALIR</a>
+          </li>
+        </ul>
+
+        <% } else if (locals.isLogged) { %>
+        
+          <ul class="navbar__menu">
+            <li class="navbar__item navbar__desplegable">
+              <a class="navbar__link" href="/shop">
+                SHOP
+                <iconify-icon class="navbar__shop--chevron" icon="ion:chevron-down-outline"></iconify-icon>
+              </a>
+              <ul class="navbar__submenu">
+                <li class="navbar__subitem">
+                  <a class="navbar__sublink" href="/shop?cat=1">Funkos</a>
+                </li>
+              </ul>
+            </li>
+            <li class="navbar__item">
+              <a class="navbar__link" href="/contact"> CONTACTO </a>
+            </li>
+            <li class="navbar__item">
+              <a class="navbar__link" href="/auth/logout">SALIR</a>
+            </li>
+            <li class="navbar__item">
+              <% if (locals.cartItems && (locals.cartItems.length > 0)) { 
+                itemsQuantity = locals.cartItems.length %>
+              <a class="navbar__cart" href="/shop/cart">
+                <img src="/img/icons/cart-icon.svg" alt="Cart icon" />
+                <p class="navbar__cart--quantity"><%= Number(itemsQuantity) %></p>
+              </a>
+              <% } else { %>
+              <a class="navbar__cart" href="/shop/cart">
+                <img src="/img/icons/cart-icon.svg" alt="Cart icon" />
+              </a>
+              <% } %>
+            </li>
+          </ul>
+
+        <% } else { %>
+
+        <ul class="navbar__menu">
+          <li class="navbar__item navbar__desplegable">
+            <a class="navbar__link" href="/shop">
+              SHOP
+              <iconify-icon class="navbar__shop--chevron" icon="ion:chevron-down-outline"></iconify-icon>
+            </a>
+            <ul class="navbar__submenu">
+              <li class="navbar__subitem">
+                <a class="navbar__sublink" href="/shop?cat=funkos">Funkos</a>
+              </li>
+            </ul>
+          </li>
+          <li class="navbar__item">
+            <a class="navbar__link" href="/contact"> CONTACTO </a>
+          </li>
+          <li class="navbar__item">
+            <a class="navbar__link" href="/auth/login">LOGIN</a>
+          </li>
+          <li class="navbar__item">
+            <% if (locals.cartItems && (locals.cartItems.length > 0)) { 
+              itemsQuantity = locals.cartItems.length %>
+            <a class="navbar__cart" href="/shop/cart">
+              <img src="/img/icons/cart-icon.svg" alt="Cart icon" />
+              <p class="navbar__cart--quantity"><%= Number(itemsQuantity) %></p>
+            </a>
+            <% } else { %>
+            <a class="navbar__cart" href="/shop/cart">
+              <img src="/img/icons/cart-icon.svg" alt="Cart icon" />
+            </a>
+            <% } %>
+          </li>
+        </ul>
+
+        <% } %>
+
+      </nav>
+    </header>

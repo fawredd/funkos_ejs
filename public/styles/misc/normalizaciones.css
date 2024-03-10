@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: var(--fuente-base);
+  color: var(--color-fuente-oscuro);
+}
+
+a {
+  text-decoration: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style-type: none; 
+}
+
+header,
+footer {
+  font-family: var(--fuente-alternativa);
+  color: var(--color-fuente-claro);
+}
+
+img {
+  max-width: 100%;
+}
+
+input {
+  max-width: 100%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+  
+.body__short-content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

@@ -1,0 +1,113 @@
+<%- include('../partials/header.ejs') %>
+
+    <main class="cart">
+      <section class="carrito container">
+        <h1 class="carrito__title">CARRITO DE COMPRAS</h1>
+
+        <div class="carrito__header">
+          <p class="carrito__subtitle">DETALLE DE PRODUCTO</p>
+          <p class="carrito__subtitle">CANTIDAD</p>
+          <p class="carrito__subtitle">TOTAL</p>
+        </div>
+
+        <ul class="carrito__list">
+          <% const arg = (number) => {
+            return number.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+          };
+
+          totalQuantity = 0;
+          totalPrice = 0;
+          shipping = 0;
+
+          if (locals.cartItems && (locals.cartItems.length > 0)) {            
+            cartItems = locals.cartItems;
+            cartItems.forEach((cartItem, index) => {
+              item = items.find(product => product.id === cartItem.id);
+              totalQuantity += cartItem.quantity;
+              totalPrice += cartItem.quantity * item.price;
+              shipping = 500; %>
+          <li class="carrito__item" id="item-<%= item.id %>">
+            <article class="cart-item">
+              <div class="cart-item__content">
+                <picture class="cart-item__img">
+                  <img
+                    src="<%= item.imageFront %>"
+                    alt="<%= item.productDescription %>"
+                  />
+                </picture>
+
+                <div class="cart-item__detail">
+                  <h3 class="cart-item__name"><%= item.productName %></h3>
+                  <p class="cart-item__license"><%= item.licence.licenceName %></p>
+                  <p class="cart-item__price">
+                    Precio unitario: <span class="value__item"><%= arg(Number(item.price)) %></span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="cart-item__cantidad">
+                <input class="cart-item__quantity" type="text" name="quantity" id="quantity-<%= index %>" placeholder="0" value="<%= cartItem.quantity %>" />
+                <div class="cart-item__button--content">
+                  <button class="cart-item__button" type="button" onclick="quantityUpdate('<%= cartItem.id %>', 1)" id="add-<%= index %>">+</button>
+                  <button class="cart-item__button" type="button" <% if (cartItem.quantity <= 1) { %> disabled <% } %> onclick="quantityUpdate('<%= cartItem.id %>', -1)" id="subtract-<%= index %>">-</button>
+                </div>
+              </div>
+
+              <p class="cart-item__total">
+                <span class="value__total"><%= arg(Number(cartItem.quantity) * Number(item.price)) %></span>
+              </p>
+
+              <form action="/shop/cart/<%= cartItem.id %>?_method=DELETE" method="POST" enctype="application/json">
+                <button class="cart-item__close" type="submit">
+                  <iconify-icon icon="zondicons:close-outline"></iconify-icon>
+                </button>
+              </form>
+            </article>
+          </li>
+          <% });
+          } else { %>          
+          <li class="carrito__item--empty">
+              <article class="cart-item__empty">
+                <p> Su carrito se encuentra vacío</p>
+                <a class="cart-item__empty--link" href="/shop">Visita nuestra tienda</a>
+              </article>
+          </li>
+        <% }; %>
+        </ul>
+      </section>
+
+      <section class="resumen container">
+        <h2 class="resumen__title">RESUMEN</h2>
+
+        <article class="resumen__content">
+          <div class="resumen__div">
+            <p class="resumen__detail">CANTIDAD DE ELEMENTOS</p>
+            <p class="resumen__value resumen_cantidad"><%= totalQuantity %></p>
+          </div>
+          <div class="resumen__div">
+            <p class="resumen__detail">SUBTOTAL</p>
+            <p class="resumen__value resumen_subtotal"><%= arg(Number(totalPrice)) %></p>
+          </div>
+          <div class="resumen__div">
+            <p class="resumen__detail">ENVIO</p>
+            <p class="resumen__value resumen_envio"><%= arg(Number(shipping)) %></p>
+          </div>
+          <div class="resumen__div resumen__total">
+            <p class="resumen__detail">TOTAL</p>
+            <p class="resumen__value resumen_total"><%= arg(Number(totalPrice) + Number(shipping)) %></p>
+          </div>
+        </article>
+        
+        <form action="/shop/cart" method="POST">
+          <input class="resumen__pagar" type="submit" value="IR A PAGAR" />
+        </form>
+      </section>
+    </main>
+
+    <%- include ('../partials/footer.ejs') %>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="/scripts/cart.js"></script>
+    <script src="/scripts/menu.js"></script>
+  </body>
+</html>

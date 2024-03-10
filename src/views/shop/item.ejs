@@ -1,0 +1,115 @@
+<%- include('../partials/header.ejs') %>
+
+    <main class="item__page">
+      <% const arg = (number) => {
+        return number.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+      };
+
+       if (item) { %>
+        <section class="item container">
+          <picture class="item__img">
+            <img class="card-item__img--front" src="<%= item.imageFront %>" alt="<%= item.productDescription %>" />
+            <img class="card-item__img--back" src="<%= item.imageBack %>" alt="<%= item.productDescription %> BOX" />
+          </picture>
+
+          <article class="item__content">
+            <p class="item__license"><%= item.licence.licenceName %></p>
+            <h1 class="item__title"><%= item.productName %></h1>
+            <p class="item__description"><%= item.productDescription %></p>
+            <p class="item__price"><%= arg(Number(item.price)) %></p>
+
+            <form class="item__carrito" action="/shop/item/<%= item.id %>" method="POST" enctype="application/json">
+                <input class="item__cantidad" name="quantity" type="text" placeholder="0" id="quantity" value="1" />
+                <div class="item__button--content">
+                  <input class="item__button" type="button" id="add" value="+" />
+                  <input class="item__button" type="button" id="subtract" value="-" />
+                </div>
+                <input
+                  class="item__add-cart"
+                  type="submit"
+                  value="Agregar al Carrito"
+                />
+            </form>
+
+            <p class="item__pago"><%= item.dues %> CUOTAS SIN INTERÉS</p>
+          </article>
+        </section>
+      <% } else { %>
+        <section class="item container">
+          <picture class="error__img">
+            <img class="card-item__img--front" src="/img/Belt-Banner-Ed-Asner-Hero.png" alt="Error item no encontrado." />
+          </picture>
+  
+          <article class="item__content">
+            <p class="item__license">No existe</p>
+            <h1 class="item__title">¡Lo siento! Item no encontrado.</h1>
+            <p class="item__price">El item que usted está solicitando no se encuentra disponible.</p>
+  
+            <div class="item__carrito">
+                <a class="item__add-cart" href="/">Ir a la página de inicio</a>
+            </div>
+          </article>
+        </section>
+      <% } %>
+
+
+      <section class="slider container glide">
+        <h3 class="slider__title">PRODUCTOS RELACIONADOS</h3>
+        <div class="glide__track" data-glide-el="track">
+          <ul class="slider__list glide__slides">
+            <% itemsList.forEach(item => { %>
+              <li class="slider__item glide__slide">
+                <article class="card-item">
+                  <a class="card-item__link" href="/shop/item/<%= item.id %>">
+                    <picture class="card-item__img">
+                      <span class="card-item__tag">NUEVO</span>
+                      <img
+                        class="card-item__img--front"
+                        src="<%= item.imageFront %>"
+                        alt="<%= item.productDescription %>"
+                      />
+                      <img
+                        class="card-item__img--back"
+                        src="<%= item.imageBack %>"
+                        alt="<%= item.productDescription %> BOX"
+                      />
+                    </picture>
+                    <div class="card-item__content">
+                      <p class="card-item__license"><%= item.licence.licenceName %></p>
+                      <h3 class="card-item__name"><%= item.productName %></h3>
+                      <p class="card-item__price"><%= arg(Number(item.price)) %></p>
+                      <p class="card-item__offer"><%= item.dues %> CUOTAS SIN INTERÉS</p>
+                    </div>
+                  </a>
+                </article>
+              </li>
+            <% }) %>
+          </ul>
+        </div>
+
+        <div class="glide__arrows" data-glide-el="controls">
+          <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+            <iconify-icon
+              class="slider__chevron"
+              icon="tabler:chevron-left"
+            ></iconify-icon>
+          </button>
+          <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
+            <iconify-icon
+              class="slider__chevron"
+              icon="tabler:chevron-right"
+            ></iconify-icon>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <%- include ('../partials/footer.ejs') %>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+    <script src="/scripts/menu.js"></script>
+    <script src="/scripts/item.js"></script>
+    <script src="/scripts/slider.js"></script>
+  </body>
+</html>

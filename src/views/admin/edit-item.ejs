@@ -1,0 +1,176 @@
+<%- include('../partials/header.ejs') %>
+
+    <main>
+      <section class="create container">
+        <h1 class="create__title">EDITAR ITEM</h1>
+
+        <form class="create__form" action="/admin/edit/<%= product.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+          <div class="create__content">
+            <label class="create__label" for="categoria">
+              Categoría:
+              <select class="create__select" name="categoria" id="categoria" required>
+                <option <%= product.categoryId == '1' ? 'selected' : '' %> value="1">Figuras coleccionables</option>
+                <option <%= product.categoryId == '2' ? 'selected' : '' %> value="2">Remeras</option>
+                <option <%= product.categoryId == '3' ? 'selected' : '' %> value="3">Llaveros</option>
+              </select>
+            </label>
+
+            <label class="create__label" for="licencia">
+              Licencia:
+              <select class="create__select" name="licencia" id="licencia" required>
+                <% licence.forEach(licence => { %>
+                <option <%= product.licenceId == licence.id ? 'selected' : '' %> value="<%= licence.id %>"><%= licence.licenceName %></option>
+                <% }) %>
+              </select>
+            </label>
+          </div>
+
+          <div class="create__content">
+            <label class="create__label" for="nombre">
+              Nombre del producto:
+              <input
+                class="create__input create__name"
+                type="text"
+                name="nombre"
+                id="nombre"
+                value="<%= product.productName %>"
+                required
+              />
+            </label>
+          </div>
+
+          <div class="create__content">
+            <textarea
+              class="create__description"
+              name="descripcion"
+              id="descripcion"
+              cols="50"
+              rows="8"
+              required
+            ><%= product.productDescription %></textarea>
+          </div>
+
+          <div class="create__content">
+            <label class="create__label" for="sku">
+              SKU:
+              <input
+                class="create__input create__sku"
+                type="text"
+                name="sku"
+                id="sku"
+                value="<%= product.sku %>"
+                required
+              />
+            </label>
+
+            <label class="create__label" for="precio">
+              Precio:
+              <input
+                class="create__input create__price"
+                type="number"
+                name="precio"
+                id="precio"
+                min="0"
+                max="99999"
+                value="<%= product.price %>"
+                required
+              />
+            </label>
+
+            <label class="create__label" for="stock">
+              Stock:
+              <input
+                class="create__input create__stock"
+                type="number"
+                name="stock"
+                id="stock"
+                min="0"
+                max="9999"
+                value="<%= product.stock %>"
+                required
+              />
+            </label>
+          </div>
+
+          <div class="create__content">
+            <label class="create__label" for="descuento">
+              Descuento:
+              <input
+                class="create__input create__descuento"
+                type="number"
+                name="descuento"
+                id="descuento"
+                min="0"
+                max="100"
+                value="<%= product.discount %>"
+              />
+            </label>
+
+            <label class="create__label" for="cuotas">
+              Cuotas:
+              <select class="create__select" name="cuotas" id="cuotas" >
+                <option <%= product.dues == '3' ? 'selected' : '' %> value="3" selected>
+                  3 Cuotas sin interés
+                </option>
+                <option <%= product.dues == '6' ? 'selected' : '' %> value="6">6 Cuotas sin interés</option>
+                <option <%= product.dues == '12' ? 'selected' : '' %> value="12">12 Cuotas sin interés</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="create__content">
+            <label class="create__label" for="imgFront">
+              Imagen Frente:
+              <input class="create__image" type="file" name="imgFront" id="imgFront" />
+            </label>
+          </div>
+
+          <div class="create__content">
+            <label class="create__label" for="imgBack">
+              Imagen Dorso:
+              <input class="create__image" type="file" name="imgBack" id="imgBack" />
+            </label>
+          </div>
+
+          <div class="create__content">
+            <div class="create__image--img">
+              <picture>
+                <img src="<%= product.imageFront %>" alt="<%= product.productDescription %>">
+              </picture>
+              <p class="create__image--side">Frente</p>
+            </div>
+
+            <div class="create__image--img">
+              <picture>
+                <img src="<%= product.imageBack %>" alt="<%= product.productDescription %>">
+              </picture>
+              <p class="create__image--side">Dorso</p>
+            </div>
+          </div>
+
+          <% if (typeof errors != 'undefined') { %>
+            <ul>
+              <% errors.forEach(error => { %>
+              <li class="auth__error create__error"><%= error.msg %></li>
+              <% }) %>
+            </ul>
+          <% } %>
+
+          <div class="create__content">
+            <input
+              class="create__button"
+              type="submit"
+              value="Modificar Producto"
+            />
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <%- include ('../partials/footer.ejs') %>
+
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="/scripts/menu.js"></script>
+    <script src="/scripts/create-edit.js"></script>
+  </body>
+</html>

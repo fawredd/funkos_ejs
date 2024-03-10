@@ -1,0 +1,129 @@
+<%- include('../partials/header.ejs') %>
+
+    <div class="shop__container">
+      <div class="shop__content container">
+        <aside class="filter">
+          <form action="/shop" method="GET">
+            <div class="filter__content">
+              <label class="filter__title" for="search">BUSCAR</label>
+              <input
+                class="filter__search"
+                type="text"
+                name="search"
+                id="search"
+                placeholder="Producto o licencia"
+              />
+              <button class="filter__search--icon" type="button">
+                <img
+                  src="/img/icons/search_icon.svg"
+                  alt="Ícono de búsqueda"
+                />
+              </button>
+
+              <p class="filter__button">
+                Filtros
+                <iconify-icon class="filter__button--icon" icon="ion:chevron-down-outline"></iconify-icon>
+              </p>
+            </div>
+
+            <div class="filter__content--desplegable">
+              <div class="filter__content">
+                <label class="filter__title" for="cat">CATEGORÍA</label>
+                <select class="filter__order" name="cat" id="cat">
+                  <option value="todos">Todos</option>
+                  <option value="1">Figuras</option>
+                </select>
+              </div>
+
+              <div class="filter__content">
+                <label class="filter__title" for="order">ORDENAR</label>
+                <select class="filter__order" name="order" id="order">
+                  <option value="default">Por defecto</option>
+                  <option value="maxprice">Mayor precio</option>
+                  <option value="minprice">Menor precio</option>
+                  <option value="az">A - Z</option>
+                  <option value="za">Z - A</option>
+                </select>
+              </div>
+
+              <div class="filter__content">
+                <h2 class="filter__title">PRECIO</h2>
+                <div class="filter__content--price">
+                  <label class="filter__label" for="min">MIN</label>
+                  <input
+                    class="filter__price"
+                    type="number"
+                    name="min"
+                    id="min"
+                    min="0"
+                    max="99999"
+                    step="100"
+                    placeholder="0"
+                  />
+                  <p class="filter__price--divisor">-</p>
+                  <label class="filter__label" for="max">MAX</label>
+                  <input
+                    class="filter__price"
+                    type="number"
+                    name="max"
+                    id="max"
+                    min="0"
+                    max="99999"
+                    step="100"
+                    placeholder="0"
+                  />
+                </div>
+              </div>
+            </div>
+          </form>
+        </aside>
+
+        <main class="shop">
+          <ul class="shop__list">
+            <% const arg = (number) => {
+              return number.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+            };
+
+            filteredItems.forEach(item => { %>
+              <li class="shop__item">
+                <article class="card-item">
+                  <a class="card-item__link" href="/shop/item/<%= item.id %>">
+                    <picture class="card-item__img">
+                      <span class="card-item__tag">NUEVO</span>
+                      <img
+                        class="card-item__img--front"
+                        src="<%= item.imageFront %>"
+                        alt="<%= item.productDescription %>"
+                      />
+                      <img
+                        class="card-item__img--back"
+                        src="<%= item.imageBack %>"
+                        alt="<%= item.productDescription %> BOX"
+                      />
+                    </picture>
+                    <div class="card-item__content">
+                      <p class="card-item__license"><%= item.licence.licenceName %></p>
+                      <h3 class="card-item__name"><%= item.productName %></h3>
+                      <p class="card-item__price"><%= arg(Number(item.price)) %></p>
+                      <p class="card-item__offer"><%= item.dues %> CUOTAS SIN INTERÉS</p>
+                    </div>
+                  </a>
+                </article>
+              </li>
+            <% }) %>
+            <% if (filteredItems.length === 0) { %>
+              <p class="shop__empty">No se han encontrado coincidencias.</p>
+            <% } %>
+          </ul>
+        </main>
+      </div>
+    </div>
+
+    <%- include ('../partials/footer.ejs') %>
+
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="/scripts/menu.js"></script>
+    <script src="/scripts/shop.js"></script>
+  </body>
+</html>
