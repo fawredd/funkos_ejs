@@ -3,11 +3,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const initSession = (cookieSession({
+export const initSession = cookieSession({
     name: 'session',
     secret: process.env.SECRET_SESSION,
     maxAge: 10 * 60 * 1000
-}));
+});
 
 export const userIsLogged = ((req, res, next) => {
     res.locals.isLogged = req.session.isLogged;
