@@ -6,7 +6,8 @@ dotenv.config();
 export const initSession = cookieSession({
     name: 'session',
     secret: process.env.SECRET_SESSION,
-    maxAge: 10 * 60 * 1000
+    maxAge: 10 * 60 * 1000,
+    keys:['mySecretKey1', 'mySecretKey2']
 });
 
 export const userIsLogged = ((req, res, next) => {
